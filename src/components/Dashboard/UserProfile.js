@@ -1,11 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
 
-const UserProfile = ({ user, onLogout }) => {
+const UserProfile = () => {
+    const { user, logout } = useContext(AuthContext);
+
     return (
         <div>
-            <h2>User Profile</h2>
-            <p>Email: {user.email}</p>
-            <button onClick={onLogout}>Logout</button>
+            {user ? (
+                <div>
+                    <h1>Welcome, {user.email}</h1>
+                    <button onClick={logout}>Logout</button>
+                </div>
+            ) : (
+                <h1>Please log in</h1>
+            )}
         </div>
     );
 };
