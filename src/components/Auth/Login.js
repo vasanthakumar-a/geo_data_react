@@ -1,28 +1,39 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "../../api/auth";
+import { AuthContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
-const Login = ({ onLoginSuccess }) => {
+const Login = () => {
+  const { user, setUser } = useContext(AuthContext);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const nav = useNavigate();
 
   const mutation = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
-        onLoginSuccess(data);
+      setUser(data);
     },
     onError: (error) => {
-        alert(error.message);
+      alert(error.message);
     },
-});
+  });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     mutation.mutate({ email, password });
-    localStorage.setItem('email', email);
-    setEmail('');
-    setPassword('');
-};
+    localStorage.setItem("email", email);
+    setEmail("");
+    setPassword("");
+  };
+
+  useEffect(() => {
+    if(user){
+      nav('/')
+    }
+  }, [user])
 
   return (
     <form onSubmit={handleSubmit}>

@@ -1,38 +1,21 @@
-import React, { useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./Auth/Login";
 import Signup from "./Auth/Signup";
-import UserProfile from "./Dashboard/UserProfile";
-import FileUpload from "./Dashboard/FileUpload";
-import Map from "./Dashboard/Map";
+import Home from "./Dashboard/Home";
+import EditDrawing from "./Map/EditDrawing";
 
 const App = () => {
-  const { user, setUser } = useContext(AuthContext);
-
-  const handleLoginSuccess = (userData) => {
-    setUser(userData);
-  };
-
-  const handleLogout = () => {
-    setUser(null);
-  };
-
-  return (    
-    <div>
+  return (
+    <Router>
       <h1>Geo-Data App</h1>
-      {user ? (
-        <>
-          <UserProfile user={user} onLogout={handleLogout} />
-          <FileUpload />
-          <Map />
-        </>
-      ) : (
-        <>
-          <Login onLoginSuccess={handleLoginSuccess} />
-          <Signup />
-        </>
-      )}
-    </div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Signup />} />
+        <Route path="/edit/:id" element={<EditDrawing />} />
+      </Routes>
+    </Router>
   );
 };
 
