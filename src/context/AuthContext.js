@@ -1,10 +1,18 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const storedEmail = localStorage.getItem('email');
+
+    if (storedEmail) {
+      setUser({ email: storedEmail });
+    }
+  }, []);
 
   const login = async (credentials) => {
     const response = await axios.post("/api/auth/login", credentials);
@@ -17,12 +25,13 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    await axios.post("/api/auth/logout");
+    // await axios.post("/api/auth/logout");
+    localStorage.removeItem('email');
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, signup, logout }}>
+    <AuthContext.Provider value={{ user, login, signup, logout, setUser }}>
       {children}
     </AuthContext.Provider>
   );

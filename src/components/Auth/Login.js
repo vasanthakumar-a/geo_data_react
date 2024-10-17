@@ -1,15 +1,28 @@
-import React, { useContext, useState } from "react";
-import { AuthContext } from "../../context/AuthContext";
+import React, { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { loginUser } from "../../api/auth";
 
-const Login = () => {
-  const { login } = useContext(AuthContext);
+const Login = ({ onLoginSuccess }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const mutation = useMutation({
+    mutationFn: loginUser,
+    onSuccess: (data) => {
+        onLoginSuccess(data);
+    },
+    onError: (error) => {
+        alert(error.message);
+    },
+});
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    login({ email, password });
-  };
+    mutation.mutate({ email, password });
+    localStorage.setItem('email', email);
+    setEmail('');
+    setPassword('');
+};
 
   return (
     <form onSubmit={handleSubmit}>
@@ -27,7 +40,9 @@ const Login = () => {
         placeholder="Password"
         required
       />
-      <button type="submit">Login</button>
+      <button type="submit" disabled={mutation.isLoading}>
+        {mutation.isLoading ? "Logging in..." : "Login"}
+      </button>
     </form>
   );
 };
