@@ -4,16 +4,31 @@ import Login from "./Auth/Login";
 import Signup from "./Auth/Signup";
 import Home from "./Dashboard/Home";
 import EditDrawing from "./Map/EditDrawing";
+import ProtectedRoute from "../lib/ProtectedRoute";
 
 const App = () => {
   return (
     <Router>
       <h1>Geo-Data App</h1>
       <Routes>
-        <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Signup />} />
-        <Route path="/edit/:id" element={<EditDrawing />} />
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              <Home />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/edit/:id"
+          element={
+            <ProtectedRoute>
+              <EditDrawing />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   );

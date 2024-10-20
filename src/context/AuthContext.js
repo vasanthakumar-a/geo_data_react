@@ -27,6 +27,7 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     // await axios.post("/api/auth/logout");
     localStorage.removeItem('email');
+    localStorage.removeItem('token');
     setUser(null);
   };
 

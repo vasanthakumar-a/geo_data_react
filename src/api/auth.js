@@ -1,11 +1,15 @@
-export const loginUser = async (credentials) => {
-  // Simulating an API call to authenticate the user
-  const { email, password } = credentials;
+import axiosInstance from "../lib/axios";
 
-  // Replace the following lines with actual API call
-  if (email === 'vas@gmail.com' && password === '123456') {
-      return { email }; // Simulate successful login
-  } else {
-      throw new Error('Invalid credentials');
+export const loginUser = async (credentials) => {
+  try {
+    const response = await axiosInstance.post("/login", {user:{...credentials}});
+    if (response.error) {
+      throw new Error("Invalid credentials");
+    }
+    if (response.data) {
+      return { email: response.data.user.email, token: response.data.token };
+    }
+  } catch (error) {
+    throw error.response?.data || { message: "Login failed!" };
   }
 };

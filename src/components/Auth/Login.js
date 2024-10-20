@@ -14,6 +14,8 @@ const Login = () => {
   const mutation = useMutation({
     mutationFn: loginUser,
     onSuccess: (data) => {
+      localStorage.setItem("email", data.email);
+      localStorage.setItem("token", data.token);
       setUser(data);
     },
     onError: (error) => {
@@ -24,16 +26,16 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     mutation.mutate({ email, password });
-    localStorage.setItem("email", email);
     setEmail("");
     setPassword("");
+    nav('/')
   };
 
   useEffect(() => {
     if(user){
       nav('/')
     }
-  }, [user])
+  }, [user, nav])
 
   return (
     <form onSubmit={handleSubmit}>
