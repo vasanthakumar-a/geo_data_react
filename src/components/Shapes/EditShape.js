@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import "leaflet-draw/dist/leaflet.draw.css";
 import "leaflet-draw";
 import "leaflet/dist/leaflet.css";
 import DrawControl from "../Map/DrawControl";
 import { useMutation } from "@tanstack/react-query";
-import { createNewShape } from '../../api/auth';
+import { createNewShape, getShape, updateShape } from "../../api/auth";
 
 const EditShape = ({ action }) => {
   const { id } = useParams();
   const [shape, setShape] = useState(null);
-  const [savedShapes, setSavedShapes] = useState(null);
   const [shapeName, setShapeName] = useState("sample text");
+  const navigate = useNavigate();
 
   const handleNameChange = (e) => {
     setShapeName(e.target.value);
@@ -21,7 +21,26 @@ const EditShape = ({ action }) => {
   const newShapeMutation = useMutation({
     mutationFn: createNewShape,
     onSuccess: (data) => {
-      
+      navigate(`/edit/${data.id}`);
+    },
+    onError: (error) => {
+      alert(error.message);
+    },
+  });
+
+  const editShapeMutation = useMutation({
+    mutationFn: updateShape,
+    onSuccess: (data) => {},
+    onError: (error) => {
+      alert(error.message);
+    },
+  });
+
+  const getShapeMutation = useMutation({
+    mutationFn: getShape,
+    onSuccess: (data) => {
+      setShapeName(data.name);
+      setShape(data.geometry);
     },
     onError: (error) => {
       alert(error.message);
@@ -32,13 +51,7 @@ const EditShape = ({ action }) => {
     const fetchShape = async () => {
       if (action === "edit") {
         try {
-          // const response = await axiosInstance.get(`/shapes/${id}`);
-          // setShape(response.data);
-
-          const savedData = localStorage.getItem("savedShapes");
-          if (savedData) {
-            setSavedShapes(JSON.parse(savedData));
-          }
+          getShapeMutation.mutate({ id });
         } catch (error) {
           console.error("Error fetching shape:", error);
         }
@@ -48,35 +61,35 @@ const EditShape = ({ action }) => {
     fetchShape();
   }, [id, action]);
 
-  if (!savedShapes && action === "edit") {
+  if (!shape && action === "edit") {
     return <p>Loading shape data...</p>;
   }
 
   const saveShapes = (data) => {
-    const geoLoc = data.features[0]?.geometry
-    const shapeName = document.getElementById('shapeName')
-    if(action==='edit') {
-
-    }
-    console.log({name: shapeName.value, geometry: geoLoc});
-    debugger
-
-    if(action==='new') {
-      if(geoLoc) {
-        newShapeMutation.mutate({name: shapeName.value, geometry: geoLoc})
-      } else {
-        alert('Please do Draw a Geometry') 
+    const geoLoc = data.features[0]?.geometry;
+    const shapeName = document.getElementById("shapeName");
+    if (geoLoc) {
+      if (action === "edit") {
+        editShapeMutation.mutate({ id: id, shapeParams: {name: shapeName.value, geometry: geoLoc} });
       }
+      if (action === "new") {
+        newShapeMutation.mutate({ id: id, name: shapeName.value, geometry: geoLoc });
+      }
+    } else {
+      alert("Please do Draw a Geometry");
     }
-
-    localStorage.setItem("savedShapes", JSON.stringify(data));
   };
 
   return (
     <>
       <div style={{ display: "flex", justifyContent: "center", gap: "20px" }}>
         <h2>Name : </h2>
-        <input type="text" id="shapeName" value={shapeName} onChange={handleNameChange} />
+        <input
+          type="text"
+          id="shapeName"
+          value={shapeName}
+          onChange={handleNameChange}
+        />
       </div>
       <MapContainer
         center={[51.505, -0.09]}
@@ -87,13 +100,8 @@ const EditShape = ({ action }) => {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
-        <DrawControl
-          onSave={saveShapes}
-          savedShapes={savedShapes}
-          setSavedShapes={setSavedShapes}
-        />
+        <DrawControl onSave={saveShapes} shape={shape} setShape={setShape} />
       </MapContainer>
-      <button onClick={saveShapes}>Map Saving</button>
     </>
   );
 };

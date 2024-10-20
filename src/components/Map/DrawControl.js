@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useMap } from "react-leaflet";
 import "leaflet-draw/dist/leaflet.draw.css";
 import L from "leaflet";
+import { parse } from 'terraformer-wkt-parser';
 
-const DrawControl = ({ onSave, savedShapes, setSavedShapes }) => {
+const DrawControl = ({ onSave, shape, setShape }) => {
   const map = useMap();
   const [drawnItems, setDrawnItems] = useState(new L.FeatureGroup());
 
@@ -39,8 +40,8 @@ const DrawControl = ({ onSave, savedShapes, setSavedShapes }) => {
     map.addControl(drawControl);
     map.addControl(new CustomButton());
 
-    if (savedShapes) {
-      const loadedData = L.geoJSON(savedShapes);
+    if (shape) {
+      const loadedData = L.geoJSON(parse(shape));
       loadedData.eachLayer((layer) => {
           drawnItems.addLayer(layer);
       });
@@ -57,11 +58,11 @@ const DrawControl = ({ onSave, savedShapes, setSavedShapes }) => {
       map.off(L.Draw.Event.CREATED);
       map.removeControl(drawControl);
     };
-  }, [map, drawnItems, savedShapes]);
+  }, [map, drawnItems, shape]);
 
   const handleSave = () => {
-    const savedShapes = drawnItems.toGeoJSON();
-    onSave(savedShapes);
+    const shape = drawnItems.toGeoJSON();
+    onSave(shape);
   };
 
   return (

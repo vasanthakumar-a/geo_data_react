@@ -69,3 +69,31 @@ export const createNewShape = async (shapeParams) => {
     throw error.response?.data || { message: "Server Error!" };
   }
 }
+
+export const updateShape = async ({id, shapeParams}) => {
+  try {
+    const response = await axiosInstance.put(`/shapes/${id}`, {shape: shapeParams});
+    if (response.error) {
+      throw new Error("Invalid token!");
+    }
+    if (response.data) {
+      return response.data;
+    }
+  } catch (error) {
+    throw error.response?.data || { message: "Server Error!" };
+  }
+}
+
+export const getShape = async (shapeParams) => {
+  try {
+    const response = await axiosInstance.get(`/shapes/${shapeParams.id}`);
+    if (response.error) {
+      throw new Error("Invalid token!");
+    }
+    if (response.data) {
+      return response.data;
+    }
+  } catch (error) {
+    throw error.response?.data || { message: "Server Error!" };
+  }
+}
