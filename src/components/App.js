@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./Auth/Login";
 import Signup from "./Auth/Signup";
 import Home from "./Dashboard/Home";
-import EditDrawing from "./Map/EditDrawing";
+import EditShape from "./Shapes/EditShape";
 import ProtectedRoute from "../lib/ProtectedRoute";
 
 const App = () => {
@@ -22,10 +22,18 @@ const App = () => {
           }
         />
         <Route
+          path="/new"
+          element={
+            <ProtectedRoute>
+              <EditShape action='new' />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/edit/:id"
           element={
             <ProtectedRoute>
-              <EditDrawing />
+              <EditShape action='edit' />
             </ProtectedRoute>
           }
         />
