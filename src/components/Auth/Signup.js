@@ -1,15 +1,43 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { useMutation } from "@tanstack/react-query";
 import { AuthContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import { registerUser } from "../../api/auth";
 
 const Signup = () => {
-  const { signup } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
+  const nav = useNavigate();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordConfirmation, setPasswordConfirmation] = useState("");
+
+  const mutation = useMutation({
+    mutationFn: registerUser,
+    onSuccess: (data) => {
+      localStorage.setItem("email", data.email);
+      localStorage.setItem("token", data.token);
+      setUser(data);
+    },
+    onError: (error) => {
+      alert(error.message);
+    },
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    signup({ email, password });
+    mutation.mutate({ email, password, password_confirmation: passwordConfirmation });
+    setEmail("");
+    setPassword("");
+    setPasswordConfirmation("");
+    nav('/')
   };
+
+  useEffect(() => {
+    if(user){
+      nav('/')
+    }
+  }, [user, nav])
 
   return (
     <form onSubmit={handleSubmit}>
@@ -27,7 +55,15 @@ const Signup = () => {
         placeholder="Password"
         required
       />
+      <input
+        type="password"
+        value={passwordConfirmation}
+        onChange={(e) => setPasswordConfirmation(e.target.value)}
+        placeholder="Confirm Password"
+        required
+      />
       <button type="submit">Sign Up</button>
+      <a href="/login">Login</a>
     </form>
   );
 };

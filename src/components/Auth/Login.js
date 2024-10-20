@@ -56,6 +56,7 @@ const Login = () => {
       <button type="submit" disabled={mutation.isLoading}>
         {mutation.isLoading ? "Logging in..." : "Login"}
       </button>
+      <a href="/register">Register</a>
     </form>
   );
 };
