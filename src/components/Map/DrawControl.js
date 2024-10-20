@@ -23,7 +23,21 @@ const DrawControl = ({ onSave, savedShapes, setSavedShapes }) => {
         polyline: true,
       },
     });
+
+    const CustomButton = L.Control.extend({
+      options: {
+        position: 'topleft',
+      },
+      onAdd: function () {
+        const button = L.DomUtil.create('button', 'custom-draw-button');
+        button.innerHTML = 'Save Map';
+        L.DomEvent.on(button, 'click', handleSave);
+        return button;
+      },
+    });
+
     map.addControl(drawControl);
+    map.addControl(new CustomButton());
 
     if (savedShapes) {
       const loadedData = L.geoJSON(savedShapes);
@@ -52,17 +66,6 @@ const DrawControl = ({ onSave, savedShapes, setSavedShapes }) => {
 
   return (
     <>
-      <button
-        onClick={handleSave}
-        style={{
-          position: "absolute",
-          top: "10px",
-          left: "10px",
-          zIndex: 1000,
-        }}
-      >
-        Save Map
-      </button>
     </>
   );
 };

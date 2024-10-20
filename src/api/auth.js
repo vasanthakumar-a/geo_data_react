@@ -41,3 +41,31 @@ export const logoutUser = async (token) => {
     throw error.response?.data || { message: "Server Error!" };
   }
 };
+
+export const getAllShapes = async () => {
+  try {
+    const response = await axiosInstance.get("/shapes");
+    if (response.error) {
+      throw new Error("Invalid token!");
+    }
+    if (response.data) {
+      return response.data;
+    }
+  } catch (error) {
+    throw error.response?.data || { message: "Server Error!" };
+  }
+}
+
+export const createNewShape = async (shapeParams) => {
+  try {
+    const response = await axiosInstance.post("/shapes", {shape: shapeParams});
+    if (response.error) {
+      throw new Error("Invalid token!");
+    }
+    if (response.data) {
+      return response.data;
+    }
+  } catch (error) {
+    throw error.response?.data || { message: "Server Error!" };
+  }
+}

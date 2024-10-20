@@ -1,27 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../../lib/axios";
+import { useMutation } from "@tanstack/react-query";
+import { getAllShapes } from "../../api/auth";
 
 const ListShapes = () => {
   const [shapes, setShapes] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchShapes = async () => {
-      try {
-        const response = await axiosInstance.get("/shapes");
-        setShapes(response.data);
-        localStorage.setItem("shapes", JSON.stringify(response.data));
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching shapes:", error);
-        const storedShapes = JSON.parse(localStorage.getItem("shapes"));
+  const mutation = useMutation({
+    mutationFn: getAllShapes,
+    onSuccess: (data) => {
+      setShapes(data);
+      localStorage.setItem("shapes", JSON.stringify(data));
+      setLoading(false);
+    },
+    onError: (error) => {
+      const storedShapes = JSON.parse(localStorage.getItem("shapes"));
         if (storedShapes) {
           setShapes(storedShapes);
         }
         setLoading(false);
-      }
+      alert(error.message);
+    },
+  });
+
+  useEffect(() => {
+    const fetchShapes = async () => {
+      mutation.mutate();
     };
 
     fetchShapes();
