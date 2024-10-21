@@ -5,11 +5,12 @@ import Signup from "./Auth/Signup";
 import Home from "./Dashboard/Home";
 import EditShape from "./Shapes/EditShape";
 import ProtectedRoute from "../lib/ProtectedRoute";
+import UserProfile from "./Dashboard/UserProfile";
 
 const App = () => {
   return (
     <Router>
-      <h1>Geo-Data App</h1>
+      <UserProfile />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Signup />} />
@@ -25,7 +26,7 @@ const App = () => {
           path="/new"
           element={
             <ProtectedRoute>
-              <EditShape action='new' />
+              <EditShape action="new" />
             </ProtectedRoute>
           }
         />
@@ -33,7 +34,7 @@ const App = () => {
           path="/edit/:id"
           element={
             <ProtectedRoute>
-              <EditShape action='edit' />
+              <EditShape action="edit" />
             </ProtectedRoute>
           }
         />

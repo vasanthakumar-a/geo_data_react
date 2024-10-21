@@ -2,13 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { getAllShapes } from "../../api/auth";
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
+import { Button } from "primereact/button";
+import { Dialog } from "primereact/dialog";
 
 const ListShapes = () => {
   const [shapes, setShapes] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const [visible, setVisible] = useState(false);
 
-  const mutation = useMutation({
+  const allShapesMutation = useMutation({
     mutationFn: getAllShapes,
     onSuccess: (data) => {
       setShapes(data);
@@ -17,17 +22,17 @@ const ListShapes = () => {
     },
     onError: (error) => {
       const storedShapes = JSON.parse(localStorage.getItem("shapes"));
-        if (storedShapes) {
-          setShapes(storedShapes);
-        }
-        setLoading(false);
+      if (storedShapes) {
+        setShapes(storedShapes);
+      }
+      setLoading(false);
       alert(error.message);
     },
   });
 
   useEffect(() => {
     const fetchShapes = async () => {
-      mutation.mutate();
+      allShapesMutation.mutate();
     };
 
     fetchShapes();
@@ -35,9 +40,13 @@ const ListShapes = () => {
 
   const handleNew = () => {
     navigate(`/new`);
-  }
+  };
 
   const handleEdit = (shapeId) => {
+    navigate(`/edit/${shapeId}`);
+  };
+
+  const handleDelete = (shapeId) => {
     navigate(`/edit/${shapeId}`);
   };
 
@@ -47,29 +56,68 @@ const ListShapes = () => {
 
   return (
     <>
-      <h1>Shape List</h1>
-      <button onClick={() => handleNew()}>New</button>
-      <button onClick={() => navigate(`/edit/1`)}>Edit</button>
-      <table>
-        <thead>
-          <tr>
-            <th>S.No</th>
-            <th>Name</th>
-            <th>Edit</th>
-          </tr>
-        </thead>
-        <tbody>
-          {shapes?.map((shape, index) => (
-            <tr key={shape.id}>
-              <td>{index + 1}</td>
-              <td>{shape.name}</td>
-              <td>
-                <button onClick={() => handleEdit(shape.id)}>Edit</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <Dialog
+        header="Header"
+        visible={visible}
+        style={{ width: "50vw" }}
+        onHide={() => {
+          if (!visible) return;
+          setVisible(false);
+        }}
+      >
+        <p className="m-0">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+      </Dialog>
+
+      <div className="p-4">
+        <div className="flex justify-center">
+          <h1 className="text-3xl font-bold mb-4">Shapes List</h1>
+        </div>
+        <div className="flex justify-end gap-10">
+          <Button
+            className="font-bold mb-4"
+            label="File Upload"
+            icon="pi pi-upload"
+            onClick={() => setVisible(true)}
+          />
+          <Button
+            className="font-bold mb-4 mr-5"
+            label="New"
+            icon="pi pi-plus-circle"
+            onClick={() => handleNew()}
+          />
+        </div>
+        <DataTable value={shapes} paginator rows={10} className="w-full">
+          <Column field="id" header="S.No" />
+          <Column field="name" header="Name" />
+          <Column
+            header="Actions"
+            body={(rowData) => (
+              <div>
+                <button
+                  onClick={() => handleEdit(rowData.id)}
+                  className="p-button p-button-info p-button-text mr-6"
+                >
+                  Edit
+                </button>
+                <button
+                  onClick={() => handleDelete(rowData.id)}
+                  className="p-button p-button-danger p-button-text"
+                >
+                  Delete
+                </button>
+              </div>
+            )}
+          />
+        </DataTable>
+      </div>
     </>
   );
 };
