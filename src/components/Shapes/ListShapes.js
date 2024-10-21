@@ -6,6 +6,7 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
+import FileUploadCard from "./FileUploadCard";
 
 const ListShapes = () => {
   const [shapes, setShapes] = useState([]);
@@ -57,7 +58,7 @@ const ListShapes = () => {
   return (
     <>
       <Dialog
-        header="Header"
+        header="File Upload"
         visible={visible}
         style={{ width: "50vw" }}
         onHide={() => {
@@ -65,15 +66,7 @@ const ListShapes = () => {
           setVisible(false);
         }}
       >
-        <p className="m-0">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </p>
+        <FileUploadCard />
       </Dialog>
 
       <div className="p-4">

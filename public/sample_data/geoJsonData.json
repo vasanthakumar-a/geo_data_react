@@ -1,0 +1,52 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Point A",
+        "description": "This is Point A",
+        "category": "Location"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-104.99404, 39.75621]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Line B",
+        "description": "This is Line B",
+        "category": "Route"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [-104.99404, 39.75621],
+          [-104.99484, 39.75691],
+          [-104.99584, 39.75761]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Polygon C",
+        "description": "This is Polygon C",
+        "category": "Area"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [-104.99584, 39.75761],
+            [-104.99504, 39.75801],
+            [-104.99454, 39.75781],
+            [-104.99584, 39.75761]
+          ]
+        ]
+      }
+    }
+  ]
+}

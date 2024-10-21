@@ -5,12 +5,13 @@ import { logoutUser } from "../../api/auth";
 import { Menubar } from "primereact/menubar";
 import { useNavigate } from "react-router-dom";
 import { Dialog } from "primereact/dialog";
+import FileUploadCard from "../Shapes/FileUploadCard";
 
 const UserProfile = () => {
   const { user, setUser } = useContext(AuthContext);
   const [items, setItems] = useState([]);
   const navigate = useNavigate();
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(false);
 
   const logoutMutation = useMutation({
     mutationFn: logoutUser,
@@ -59,7 +60,7 @@ const UserProfile = () => {
           label: "File Upload",
           icon: "pi pi-upload",
           command: () => {
-            setVisible(true)
+            setVisible(true);
           },
         },
         {
@@ -109,7 +110,7 @@ const UserProfile = () => {
       <Menubar model={items} start={start} end={end} />
 
       <Dialog
-        header="Header"
+        header="File Upload"
         visible={visible}
         style={{ width: "50vw" }}
         onHide={() => {
@@ -117,15 +118,7 @@ const UserProfile = () => {
           setVisible(false);
         }}
       >
-        <p className="m-0">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum.
-        </p>
+        <FileUploadCard />
       </Dialog>
     </div>
   );
