@@ -7,6 +7,7 @@ import "leaflet/dist/leaflet.css";
 import DrawControl from "../Map/DrawControl";
 import { useMutation } from "@tanstack/react-query";
 import { createNewShape, getShape, updateShape } from "../../api/auth";
+import { InputText } from "primereact/inputtext";
 
 const EditShape = ({ action }) => {
   const { id } = useParams();
@@ -82,15 +83,11 @@ const EditShape = ({ action }) => {
 
   return (
     <>
-      <div style={{ display: "flex", justifyContent: "center", gap: "20px" }}>
-        <h2>Name : </h2>
-        <input
-          type="text"
-          id="shapeName"
-          value={shapeName}
-          onChange={handleNameChange}
-        />
-      </div>
+    <div className="flex flex-wrap justify-center align-items-center mb-3 gap-5">
+      <h2 className=" text-black">Shape Name :</h2>
+      <InputText id="shapeName" placeholder="shapeName" className="p-invalid mr-2 border-2 border-black-700" value={shapeName} onChange={handleNameChange} />
+
+    </div>
       <MapContainer
         center={[51.505, -0.09]}
         zoom={13}

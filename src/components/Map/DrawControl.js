@@ -32,6 +32,7 @@ const DrawControl = ({ onSave, shape, setShape }) => {
       onAdd: function () {
         const button = L.DomUtil.create('button', 'custom-draw-button');
         button.innerHTML = 'Save Map';
+        button.classList = 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
         L.DomEvent.on(button, 'click', handleSave);
         return button;
       },
