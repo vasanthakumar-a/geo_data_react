@@ -1,19 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import { useNavigate, useParams } from "react-router-dom";
 import "leaflet-draw/dist/leaflet.draw.css";
 import "leaflet-draw";
+import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import DrawControl from "../Map/DrawControl";
 import { useMutation } from "@tanstack/react-query";
 import { createNewShape, getShape, updateShape } from "../../api/auth";
 import { InputText } from "primereact/inputtext";
+import { parse } from "terraformer-wkt-parser";
 
 const EditShape = ({ action }) => {
   const { id } = useParams();
   const [shape, setShape] = useState(null);
   const [shapeName, setShapeName] = useState("sample text");
   const navigate = useNavigate();
+
+  const mapRef = useRef();
 
   const handleNameChange = (e) => {
     setShapeName(e.target.value);
@@ -42,6 +46,12 @@ const EditShape = ({ action }) => {
     onSuccess: (data) => {
       setShapeName(data.name);
       setShape(data.geometry);
+
+      if (data.geometry && mapRef.current) {
+        const loadedData = L.geoJSON(parse(data.geometry));
+        const bounds = loadedData.getBounds();
+        mapRef.current.fitBounds(bounds);
+      }
     },
     onError: (error) => {
       alert(error.message);
@@ -60,7 +70,7 @@ const EditShape = ({ action }) => {
     };
 
     fetchShape();
-  }, [id, action]);
+  }, [id, action, shape]);
 
   if (!shape && action === "edit") {
     return <p>Loading shape data...</p>;
@@ -89,13 +99,13 @@ const EditShape = ({ action }) => {
 
     </div>
       <MapContainer
+        ref={mapRef}
         center={[51.505, -0.09]}
         zoom={13}
         style={{ height: "500px", width: "100%" }}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         />
         <DrawControl onSave={saveShapes} shape={shape} setShape={setShape} />
       </MapContainer>

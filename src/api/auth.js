@@ -97,3 +97,26 @@ export const getShape = async (shapeParams) => {
     throw error.response?.data || { message: "Server Error!" };
   }
 }
+
+export const fileUpload = async (formData) => {
+  try {
+    const token = localStorage.getItem("token");
+    debugger
+    const response = await fetch('http://localhost:3000/geospatial_data', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    });
+    // const response = await axiosInstance.post('/geospatial_data/', formData);
+    if (response.error) {
+      throw new Error("Invalid token!");
+    }
+    if (response.data) {
+      return response.data;
+    }
+  } catch (error) {
+    throw error.response?.data || { message: "Server Error!" };
+  }
+}
