@@ -45,25 +45,25 @@ const UserProfile = () => {
           setVisible(false);
         }}
       >
-        <FileUploadCard />
+        <FileUploadCard visbleFalse={() => setVisible(false)}/>
       </Dialog>
-      <header class="flex shadow-md py-4 px-4 sm:px-10 bg-white font-[sans-serif] min-h-[70px] tracking-wide relative z-50">
-        <div class="flex flex-wrap items-center justify-between gap-5 w-full">
+      <header className="flex shadow-md py-4 px-4 sm:px-10 bg-white font-[sans-serif] min-h-[70px] tracking-wide relative z-50">
+        <div className="flex flex-wrap items-center justify-between gap-5 w-full">
           <a href="/">
             <h1>Geo Data App</h1>
           </a>
 
           <div
             id="collapseMenu"
-            class="max-lg:hidden lg:!block max-lg:before:fixed max-lg:before:bg-black max-lg:before:opacity-50 max-lg:before:inset-0 max-lg:before:z-50"
+            className="max-lg:hidden lg:!block max-lg:before:fixed max-lg:before:bg-black max-lg:before:opacity-50 max-lg:before:inset-0 max-lg:before:z-50"
           >
             <button
               id="toggleClose"
-              class="lg:hidden fixed top-2 right-4 z-[100] rounded-full bg-white p-3"
+              className="lg:hidden fixed top-2 right-4 z-[100] rounded-full bg-white p-3"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="w-4 fill-black"
+                className="w-4 fill-black"
                 viewBox="0 0 320.591 320.591"
               >
                 <path
@@ -77,42 +77,42 @@ const UserProfile = () => {
               </svg>
             </button>
 
-            <ul class="lg:flex gap-x-5 max-lg:space-y-3 max-lg:fixed max-lg:bg-white max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50">
-              <li class="mb-6 hidden max-lg:block">
-                <a href="javascript:void(0)">
+            <ul className="lg:flex gap-x-5 max-lg:space-y-3 max-lg:fixed max-lg:bg-white max-lg:w-1/2 max-lg:min-w-[300px] max-lg:top-0 max-lg:left-0 max-lg:p-6 max-lg:h-full max-lg:shadow-md max-lg:overflow-auto z-50">
+              <li className="mb-6 hidden max-lg:block">
+                <a href="/">
                   <img
                     src="https://readymadeui.com/readymadeui.svg"
                     alt="logo"
-                    class="w-36"
+                    className="w-36"
                   />
                 </a>
               </li>
-              <li class="max-lg:border-b border-gray-300 max-lg:py-3 px-3">
+              <li className="max-lg:border-b border-gray-300 max-lg:py-3 px-3">
                 <a
                   href="/"
-                  class="hover:text-[#007bff] text-[#007bff] block font-semibold text-[15px]"
+                  className="hover:text-[#007bff] text-[#007bff] block font-semibold text-[15px]"
                 >
                   <i className="pi pi-home pr-2"></i>Home
                 </a>
               </li>
               {user && (
                 <>
-                  <li class="max-lg:border-b border-gray-300 max-lg:py-3 px-3">
+                  <li className="max-lg:border-b border-gray-300 max-lg:py-3 px-3">
                     <button
                       onClick={() => {
                         setVisible(true);
                       }}
-                      class="hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]"
+                      className="hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]"
                     >
                       <i className="pi pi-upload pr-2"></i>File Upload
                     </button>
                   </li>
-                  <li class="max-lg:border-b border-gray-300 max-lg:py-3 px-3">
+                  <li className="max-lg:border-b border-gray-300 max-lg:py-3 px-3">
                     <button
                       onClick={() => {
                         navigate("/new");
                       }}
-                      class="hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]"
+                      className="hover:text-[#007bff] text-gray-500 block font-semibold text-[15px]"
                     >
                       <i className="pi pi-pencil pr-2"></i>Custom Draw
                     </button>
@@ -122,42 +122,42 @@ const UserProfile = () => {
             </ul>
           </div>
 
-          <div class="flex max-lg:ml-auto space-x-3">
+          <div className="flex max-lg:ml-auto space-x-3">
             {user ? (
               <>
-                <div class="relative font-[sans-serif] w-max mx-auto">
+                <div className="relative font-[sans-serif] w-max mx-auto">
                   <div
-                    class="flex flex-wrap items-center justify-center gap-4 cursor-pointer"
+                    className="flex flex-wrap items-center justify-center gap-4 cursor-pointer"
                     id="dropdownToggle"
                     onClick={handleClick}
                   >
                     <img
                       src="https://readymadeui.com/team-1.webp"
-                      class="w-12 h-12 rounded-full"
+                      className="w-12 h-12 rounded-full"
                       alt="no_image"
                     />
                     <div>
-                      <p class="text-[15px] text-gray-800 font-bold">
+                      <p className="text-[15px] text-gray-800 font-bold">
                         John Doe
                       </p>
-                      <p class="text-xs text-gray-500 mt-0.5">{user?.email}</p>
+                      <p className="text-xs text-gray-500 mt-0.5">{user?.email}</p>
                     </div>
                   </div>
 
                   <ul
                     id="dropdownMenu"
-                    class="absolute hidden shadow-lg bg-white py-2 z-[1000] min-w-full w-max rounded max-h-96 overflow-auto"
+                    className="absolute hidden shadow-lg bg-white py-2 z-[1000] min-w-full w-max rounded max-h-96 overflow-auto"
                   >
-                    <li class="flex items-center py-3 px-6 hover:bg-blue-50 text-black text-sm cursor-pointer">
+                    <li className="flex items-center py-3 px-6 hover:bg-blue-50 text-black text-sm cursor-pointer">
                       <i className="pi pi-sign-out pr-3"></i>
                       Settings
                     </li>
-                    <li class="flex items-center py-3 px-6 hover:bg-blue-50 text-black text-sm cursor-pointer">
+                    <li className="flex items-center py-3 px-6 hover:bg-blue-50 text-black text-sm cursor-pointer">
                       <i className="pi pi-user-plus pr-3"></i>
                       Profile Edit
                     </li>
                     <li
-                      class="flex items-center py-3 px-6 hover:bg-blue-50 text-black text-sm cursor-pointer"
+                      className="flex items-center py-3 px-6 hover:bg-blue-50 text-black text-sm cursor-pointer"
                       onClick={() => {
                         logoutMutation.mutate();
                       }}
@@ -171,7 +171,7 @@ const UserProfile = () => {
             ) : (
               <>
                 <button
-                  class="px-4 py-2 text-sm rounded-full font-bold text-white border-2 border-[#007bff] bg-[#007bff] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff]"
+                  className="px-4 py-2 text-sm rounded-full font-bold text-white border-2 border-[#007bff] bg-[#007bff] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff]"
                   onClick={() => {
                     navigate("/login");
                   }}
@@ -179,7 +179,7 @@ const UserProfile = () => {
                   Login
                 </button>
                 <button
-                  class="px-4 py-2 text-sm rounded-full font-bold text-white border-2 border-[#007bff] bg-[#007bff] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff]"
+                  className="px-4 py-2 text-sm rounded-full font-bold text-white border-2 border-[#007bff] bg-[#007bff] transition-all ease-in-out duration-300 hover:bg-transparent hover:text-[#007bff]"
                   onClick={() => {
                     navigate("/register");
                   }}
@@ -189,17 +189,15 @@ const UserProfile = () => {
               </>
             )}
 
-            <button id="toggleOpen" class="lg:hidden">
+            <button id="toggleOpen" className="lg:hidden">
               <svg
-                class="w-7 h-7"
+                className="w-7 h-7"
                 fill="#000"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  fill-rule="evenodd"
                   d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                  clip-rule="evenodd"
                 ></path>
               </svg>
             </button>

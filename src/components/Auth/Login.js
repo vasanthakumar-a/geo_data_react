@@ -39,42 +39,41 @@ const Login = () => {
 
   return (
     <>
-      <div class="font-[sans-serif]">
-        <div class="min-h-screen flex fle-col items-center justify-center py-6 px-4">
-          <div class="grid md:grid-cols-2 items-center gap-10 max-w-6xl w-full">
+      <div className="font-[sans-serif]">
+        <div className="min-h-screen flex fle-col items-center justify-center py-6 px-4">
+          <div className="grid md:grid-cols-2 items-center gap-10 max-w-6xl w-full">
             <div>
-              <h2 class="lg:text-5xl text-4xl font-extrabold lg:leading-[55px] text-gray-800">
+              <h2 className="lg:text-5xl text-4xl font-extrabold lg:leading-[55px] text-gray-800">
                 Geo Spactial Data App
               </h2>
-              <p class="text-sm mt-6 text-gray-800">
+              <p className="text-sm mt-6 text-gray-800">
                 Navigate Your World: Seamless Management of Geo Data.
               </p>
-              <p class="text-sm mt-12 text-gray-800">
+              <p className="text-sm mt-12 text-gray-800">
                 Don't have an account{" "}
                 <a
                   href="/register"
-                  class="text-blue-600 font-semibold hover:underline ml-1"
+                  className="text-blue-600 font-semibold hover:underline ml-1"
                 >
                   Register here
                 </a>
               </p>
             </div>
 
-            <form class="max-w-md md:ml-auto w-full" onSubmit={handleSubmit}>
-              <h3 class="text-gray-800 text-3xl font-extrabold mb-8">
+            <form className="max-w-md md:ml-auto w-full" onSubmit={handleSubmit}>
+              <h3 className="text-gray-800 text-3xl font-extrabold mb-8">
                 Sign in
               </h3>
 
-              <div class="space-y-4">
+              <div className="space-y-4">
                 <div>
                   <input
                     name="email"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    autocomplete="email"
                     required
-                    class="bg-gray-100 w-full text-sm text-gray-800 px-4 py-3.5 rounded-md outline-blue-600 focus:bg-transparent"
+                    className="bg-gray-100 w-full text-sm text-gray-800 px-4 py-3.5 rounded-md outline-blue-600 focus:bg-transparent"
                     placeholder="Email address"
                   />
                 </div>
@@ -84,31 +83,29 @@ const Login = () => {
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    autocomplete="current-password"
                     required
-                    class="bg-gray-100 w-full text-sm text-gray-800 px-4 py-3.5 rounded-md outline-blue-600 focus:bg-transparent"
+                    className="bg-gray-100 w-full text-sm text-gray-800 px-4 py-3.5 rounded-md outline-blue-600 focus:bg-transparent"
                     placeholder="Password"
                   />
                 </div>
-                <div class="flex flex-wrap items-center justify-between gap-4">
-                  <div class="flex items-center">
+                <div className="flex flex-wrap items-center justify-between gap-4">
+                  <div className="flex items-center">
                     <input
                       id="remember-me"
                       name="remember-me"
                       type="checkbox"
-                      class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                      className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                     />
                     <label
-                      for="remember-me"
-                      class="ml-3 block text-sm text-gray-800"
+                      className="ml-3 block text-sm text-gray-800"
                     >
                       Remember me
                     </label>
                   </div>
-                  <div class="text-sm">
+                  <div className="text-sm">
                     <a
                       href="jajvascript:void(0);"
-                      class="text-blue-600 hover:text-blue-500 font-semibold"
+                      className="text-blue-600 hover:text-blue-500 font-semibold"
                     >
                       Forgot your password?
                     </a>
@@ -116,18 +113,18 @@ const Login = () => {
                 </div>
               </div>
 
-              <div class="!mt-8">
+              <div className="!mt-8">
                 <button
                   type="submit"
                   disabled={mutation.isLoading}
-                  class="w-full shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
+                  className="w-full shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
                 >
                   {mutation.isLoading ? "Logging in..." : "Log in"}
                 </button>
               </div>
 
-              <div class="space-x-6 flex justify-center mt-8">
-                <button type="button" class="border-none outline-none">
+              <div className="space-x-6 flex justify-center mt-8">
+                <button type="button" className="border-none outline-none">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="32px"
@@ -165,7 +162,7 @@ const Login = () => {
                     />
                   </svg>
                 </button>
-                <button type="button" class="border-none outline-none">
+                <button type="button" className="border-none outline-none">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="32px"
@@ -183,7 +180,7 @@ const Login = () => {
                     />
                   </svg>
                 </button>
-                <button type="button" class="border-none outline-none">
+                <button type="button" className="border-none outline-none">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="32px"

@@ -7,7 +7,7 @@ import { useMutation } from "@tanstack/react-query";
 import { fileUpload } from "../../api/auth";
 import { useNavigate } from "react-router-dom";
 
-const FileUploadCard = () => {
+const FileUploadCard = ({ visbleFalse }) => {
   const [file, setFile] = useState(null);
   const navigate = useNavigate();
 
@@ -35,7 +35,6 @@ const FileUploadCard = () => {
 
     const formData = new FormData();
     formData.append('file', file);
-    console.log('Form Data:', formData.get('file'));
 
     const token = localStorage.getItem("token");
     const response = await fetch('http://localhost:3000/geospatial_data', {
@@ -47,6 +46,7 @@ const FileUploadCard = () => {
     });
     if (response.ok) {
       navigate('/')
+      visbleFalse()
     }
     // fileUploadMutation.mutate(formData);
   };

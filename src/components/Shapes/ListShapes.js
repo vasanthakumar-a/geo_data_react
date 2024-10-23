@@ -66,10 +66,10 @@ const ListShapes = () => {
           setVisible(false);
         }}
       >
-        <FileUploadCard />
+        <FileUploadCard visbleFalse={() => setVisible(false)} />
       </Dialog>
 
-      <div class="bg-gray-100 md:px-10 px-4 py-12 font-[sans-serif]">
+      <div className="bg-gray-100 md:px-10 px-4 py-12 font-[sans-serif]">
       <div className="container mx-auto p-4">
         <div className="flex justify-center">
           <h1 className="text-3xl font-bold mb-4">Shapes List</h1>

@@ -2,10 +2,10 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./Auth/Login";
 import Signup from "./Auth/Signup";
-import Home from "./Dashboard/Home";
 import EditShape from "./Shapes/EditShape";
 import ProtectedRoute from "../lib/ProtectedRoute";
 import UserProfile from "./Dashboard/UserProfile";
+import ListShapes from "./Shapes/ListShapes";
 
 const App = () => {
   return (
@@ -18,7 +18,7 @@ const App = () => {
           path="/"
           element={
             <ProtectedRoute>
-              <Home />
+              <ListShapes />
             </ProtectedRoute>
           }
         />

@@ -45,38 +45,38 @@ const Signup = () => {
 
   return (
     <>
-      <div class="flex flex-col justify-center font-[sans-serif] sm:h-screen p-4">
-        <div class="max-w-md w-full mx-auto border border-gray-300 rounded-2xl p-8">
-          <div class="text-center mb-12">
+      <div className="flex flex-col justify-center font-[sans-serif] sm:h-screen p-4">
+        <div className="max-w-md w-full mx-auto border border-gray-300 rounded-2xl p-8">
+          <div className="text-center mb-12">
             <h1>Sign Up</h1>
           </div>
 
           <form onSubmit={handleSubmit}>
-            <div class="space-y-6">
+            <div className="space-y-6">
               <div>
-                <label class="text-gray-800 text-sm mb-2 block">Email Id</label>
+                <label className="text-gray-800 text-sm mb-2 block">Email Id</label>
                 <input
                   name="email"
                   type="text"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  class="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
+                  className="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
                   placeholder="Enter email"
                 />
               </div>
               <div>
-                <label class="text-gray-800 text-sm mb-2 block">Password</label>
+                <label className="text-gray-800 text-sm mb-2 block">Password</label>
                 <input
                   name="password"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  class="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
+                  className="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
                   placeholder="Enter password"
                 />
               </div>
               <div>
-                <label class="text-gray-800 text-sm mb-2 block">
+                <label className="text-gray-800 text-sm mb-2 block">
                   Confirm Password
                 </label>
                 <input
@@ -84,26 +84,25 @@ const Signup = () => {
                   type="password"
                   value={passwordConfirmation}
                   onChange={(e) => setPasswordConfirmation(e.target.value)}
-                  class="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
+                  className="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500"
                   placeholder="Enter confirm password"
                 />
               </div>
 
-              <div class="flex items-center">
+              <div className="flex items-center">
                 <input
                   id="remember-me"
                   name="remember-me"
                   type="checkbox"
-                  class="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  className="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
                 />
                 <label
-                  for="remember-me"
-                  class="text-gray-800 ml-3 block text-sm"
+                  className="text-gray-800 ml-3 block text-sm"
                 >
                   I accept the{" "}
                   <a
-                    href="javascript:void(0);"
-                    class="text-blue-600 font-semibold hover:underline ml-1"
+                    href="/"
+                    className="text-blue-600 font-semibold hover:underline ml-1"
                   >
                     Terms and Conditions
                   </a>
@@ -111,19 +110,19 @@ const Signup = () => {
               </div>
             </div>
 
-            <div class="!mt-12">
+            <div className="!mt-12">
               <button
                 type="submit"
-                class="w-full py-3 px-4 text-sm tracking-wider font-semibold rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
+                className="w-full py-3 px-4 text-sm tracking-wider font-semibold rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
               >
                 Create an account
               </button>
             </div>
-            <p class="text-gray-800 text-sm mt-6 text-center">
+            <p className="text-gray-800 text-sm mt-6 text-center">
               Already have an account?{" "}
               <a
                 href="/login"
-                class="text-blue-600 font-semibold hover:underline ml-1"
+                className="text-blue-600 font-semibold hover:underline ml-1"
               >
                 Login here
               </a>
