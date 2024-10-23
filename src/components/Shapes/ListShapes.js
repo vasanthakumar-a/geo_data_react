@@ -69,7 +69,8 @@ const ListShapes = () => {
         <FileUploadCard />
       </Dialog>
 
-      <div className="p-4">
+      <div class="bg-gray-100 md:px-10 px-4 py-12 font-[sans-serif]">
+      <div className="container mx-auto p-4">
         <div className="flex justify-center">
           <h1 className="text-3xl font-bold mb-4">Shapes List</h1>
         </div>
@@ -87,8 +88,7 @@ const ListShapes = () => {
             onClick={() => handleNew()}
           />
         </div>
-        <DataTable value={shapes} paginator rows={10} className="w-full">
-          <Column field="id" header="S.No" />
+        <DataTable value={shapes} showGridlines paginator rows={10} className="w-full">
           <Column field="name" header="Name" />
           <Column
             header="Actions"
@@ -110,6 +110,7 @@ const ListShapes = () => {
             )}
           />
         </DataTable>
+      </div>
       </div>
     </>
   );

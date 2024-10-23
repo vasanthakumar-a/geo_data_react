@@ -93,22 +93,31 @@ const EditShape = ({ action }) => {
 
   return (
     <>
-    <div className="flex flex-wrap justify-center align-items-center mb-3 gap-5">
-      <h2 className=" text-black">Shape Name :</h2>
-      <InputText id="shapeName" placeholder="shapeName" className="p-invalid mr-2 border-2 border-black-700" value={shapeName} onChange={handleNameChange} />
+   <div class="bg-gradient-to-t from-gray-800 to-gray-700 font-[sans-serif] p-6">
+      <div class="grid md:grid-cols-2 items-center sm:gap-12 gap-6 max-w-6xl mx-auto min-h-[200px]">
+        <div>
+          <h3 class="sm:text-5xl text-3xl text-white font-bold uppercase tracking-wider">Geo Data App</h3>
+          <h6 class="sm:text-2xl text-xl text-gray-300 mb-1.5 tracking-wide">Shape Name</h6>
+        </div>
 
-    </div>
+        <div class="bg-gray-100 flex p-1 rounded-full focus-within:bg-white">
+          <input type='text' placeholder='Enter Shape Name' class="w-full outline-none bg-transparent text-gray-800 text-base px-4 py-3" value={shapeName} onChange={handleNameChange} />
+        </div>
+      </div>
+      <div className="container mx-auto">
       <MapContainer
         ref={mapRef}
         center={[51.505, -0.09]}
         zoom={13}
-        style={{ height: "500px", width: "100%" }}
+        style={{ height: "80vh", width: "100%" }}
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <DrawControl onSave={saveShapes} shape={shape} setShape={setShape} />
       </MapContainer>
+    </div>
+    </div>
     </>
   );
 };
