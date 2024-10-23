@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
-import { getAllShapes } from "../../api/auth";
+import { deleteShape, getAllShapes } from "../../api/auth";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Button } from "primereact/button";
@@ -31,6 +31,17 @@ const ListShapes = () => {
     },
   });
 
+  const deleteShapeMutation = useMutation({
+    mutationFn: deleteShape,
+    onSuccess: (data) => {
+      navigate('/')
+      allShapesMutation.mutate();
+    },
+    onError: (error) => {
+      alert(error.message);
+    },
+  });
+
   useEffect(() => {
     const fetchShapes = async () => {
       allShapesMutation.mutate();
@@ -48,7 +59,7 @@ const ListShapes = () => {
   };
 
   const handleDelete = (shapeId) => {
-    navigate(`/edit/${shapeId}`);
+    deleteShapeMutation.mutate({id: shapeId});
   };
 
   if (loading) {
