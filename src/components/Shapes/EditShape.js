@@ -70,7 +70,7 @@ const EditShape = ({ action }) => {
     };
 
     fetchShape();
-  }, [id, action, shape]);
+  }, [id, action, shape, getShapeMutation]);
 
   if (!shape && action === "edit") {
     return <p>Loading shape data...</p>;

@@ -38,6 +38,11 @@ const DrawControl = ({ onSave, shape, setShape }) => {
       },
     });
 
+    const handleSave = () => {
+      const shape = drawnItems.toGeoJSON();
+      onSave(shape);
+    };
+
     map.addControl(drawControl);
     map.addControl(new CustomButton());
 
@@ -59,12 +64,7 @@ const DrawControl = ({ onSave, shape, setShape }) => {
       map.off(L.Draw.Event.CREATED);
       map.removeControl(drawControl);
     };
-  }, [map, drawnItems, shape]);
-
-  const handleSave = () => {
-    const shape = drawnItems.toGeoJSON();
-    onSave(shape);
-  };
+  }, [map, drawnItems, shape, onSave]);
 
   return (
     <>

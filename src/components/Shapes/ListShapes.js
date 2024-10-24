@@ -48,7 +48,7 @@ const ListShapes = () => {
     };
 
     fetchShapes();
-  }, []);
+  }, [allShapesMutation]);
 
   const handleNew = () => {
     navigate(`/new`);
